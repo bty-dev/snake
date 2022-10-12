@@ -27,7 +27,14 @@ window.onload = () => {
     board.width = cols * blockSize;
     board.height = rows * blockSize;
 
-    document.addEventListener('keyup', changeDirection)
+    document.addEventListener('keydown', changeDirection)
+
+    document.addEventListener('keydown', (e) => {
+        if (e.which === 32) {
+            gameOver = false;
+            score = 0;
+        }
+    })
 
     board.addEventListener('click', () => {
         gameOver = false;
@@ -36,7 +43,7 @@ window.onload = () => {
 
     foodPlace();
 
-    setInterval(update, 100)
+    setInterval(update, 1000 / 10)
 }
 
 function update() {
@@ -52,7 +59,7 @@ function update() {
 
         createText(`Score: ${score}`, board.width / 2, board.height / 2 + 25, 'center');
 
-        createText(`Click to Start Again`, (cols * blockSize) / 2, board.height - 50, 'center');
+        createText(`Click or press space to Start Again`, (cols * blockSize) / 2, board.height - 50, 'center');
 
         return
     }
@@ -85,7 +92,7 @@ function update() {
     snakeX += velocityX * blockSize;
     snakeY += velocityY * blockSize;
 
-    createRect(snakeX, snakeY, blockSize, blockSize, 'gray');
+    createRect(snakeX, snakeY, blockSize, blockSize, 'lime');
 
     for (let i = 0; i < tail.length; i++) { 
         createRect(tail[i][0], tail[i][1], blockSize, blockSize, 'white');
@@ -144,7 +151,7 @@ function createRect(x, y, width, height, color = "black") {
 }
 
 function createText(text, x, y, textAlign = "start", fontSize = 20 ) {
-    context.fillStyle = "white";
+    context.fillStyle = "lime";
     context.font = `${fontSize}px Montserrat`;
     context.textAlign = textAlign;
     context.fillText(text, x, y)
