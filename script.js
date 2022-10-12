@@ -16,6 +16,8 @@ let score = 0;
 let velocityX = 1;
 let velocityY = 0;
 
+let prevDirection = "right";
+
 let gameOver = false;
 
 window.onload = () => {
@@ -108,18 +110,22 @@ function foodPlace() {
 }
 
 function changeDirection(e) {
-    if (e.code == "ArrowUp") {
+    if (e.code == "ArrowUp"  && prevDirection !== "down") {
         velocityX = 0;
         velocityY = -1;
-    } else if (e.code == "ArrowDown") {
+        prevDirection = "up"
+    } else if (e.code == "ArrowDown"  && prevDirection !== "up") {
         velocityX = 0;
         velocityY = 1;
-    } else if (e.code == "ArrowLeft") {
+        prevDirection = "down"
+    } else if (e.code == "ArrowLeft" && prevDirection !== "right") {
         velocityX = -1;
         velocityY = 0;
-    } else if (e.code == "ArrowRight") {
+        prevDirection = "left"
+    } else if (e.code == "ArrowRight"  && prevDirection !== "left") {
         velocityX = 1;
         velocityY = 0;
+        prevDirection = "right"
     }
 }
 
